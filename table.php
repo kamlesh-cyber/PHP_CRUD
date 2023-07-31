@@ -50,7 +50,11 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck">
               <label class="form-check-label" for="exampleCheck">Check me out</label>
             </div>
+            <?php if($updat==true): ?>
+            <button type="submit" name="Update" class="btn btn-primary">Submit</button>
+            <?php else: ?>
             <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+            <?php endif ?>
           </form>
     </div>
 
@@ -78,10 +82,18 @@
                     <button type="button" class="btn btn-danger text-light">
                     <a href="connection.php?delete=<?php echo $row['ID']; ?>" class="link-Success">Delete</a>
                     </button>
+                    
                 </td>
             </tr>
              <?php } ?>
         </table>
+
+        <!-- <form method="POST" action="connection.php">
+            <input type="hidden" name="id" value="<?php echo $id;?>">
+            <div class="input-group"></div>
+            <label for="name">Name</label>
+            <input type="text">
+        </form> -->
     </div>
     
 </body>
