@@ -3,7 +3,8 @@
     //for edit button
     if(isset($_GET['edit'])){
         $editId  = $_GET['edit'];
-        $record = mysqli_query($con, "SELECT * from form where ID = $editId");
+        $update = true;
+        $record = mysqli_query($con, "SELECT * from form where id = $editId");
 
         if(mysqli_num_rows($record) == 1){
             $n = mysqli_fetch_array($record);
@@ -27,8 +28,19 @@
 </head>
 
 <body>
+    <div class="conatiner">
+    <?php if(isset($_SESSION['message'])): ?>
+        <div class=" alert alert-success ms-5 me-5 text-center">
+            <?php
+                echo $_SESSION['message'];
+                unset ($_SESSION['message']);
+            ?>
+        </div>
+    <?php endif ?>
+    </div>
     <div class="container card p-3 mt-2">
-        <form action = "#" method = "GET" target="#">
+        <form action = "connection.php" method = "POST">
+            <input type="hidden" name="id" value = "<?php echo $editId; ?>" >
             <div class="item">
                 <label for="name" class="form-label">Name</label>
                 <input type="text" name="name" class="form-control" id="name" value="<?php echo isset($_GET['edit'])?$name:''?>">
@@ -50,11 +62,14 @@
               <input type="checkbox" class="form-check-input" id="exampleCheck">
               <label class="form-check-label" for="exampleCheck">Check me out</label>
             </div>
-            <?php if($updat==true): ?>
-            <button type="submit" name="Update" class="btn btn-primary">Submit</button>
-            <?php else: ?>
-            <button type="submit" name="submit" class="btn btn-primary">Submit</button>
-            <?php endif ?>
+            <div class="item">
+                <?php if(isset($_GET['edit'])){if($update==true){ ?>
+                    <button type="submit" name="update" class="btn btn-primary">Update</button>
+
+                <?php }}else { ?>
+                    <button type="submit" name="submit" class="btn btn-primary">Submit</button>
+                <?php  }?>
+            </div>
           </form>
     </div>
 
@@ -81,19 +96,11 @@
                     </button>
                     <button type="button" class="btn btn-danger text-light">
                     <a href="connection.php?delete=<?php echo $row['ID']; ?>" class="link-Success">Delete</a>
-                    </button>
-                    
+                    </button> 
                 </td>
             </tr>
              <?php } ?>
         </table>
-
-        <!-- <form method="POST" action="connection.php">
-            <input type="hidden" name="id" value="<?php echo $id;?>">
-            <div class="input-group"></div>
-            <label for="name">Name</label>
-            <input type="text">
-        </form> -->
     </div>
     
 </body>
