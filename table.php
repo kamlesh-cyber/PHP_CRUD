@@ -1,18 +1,6 @@
 <?php
     include 'connection.php';
-    //for edit button
-    if(isset($_GET['edit'])){
-        $editId  = $_GET['edit'];
-        $update = true;
-        $record = mysqli_query($con, "SELECT * from form where id = $editId");
-
-        if(mysqli_num_rows($record) == 1){
-            $n = mysqli_fetch_array($record);
-            $name = $n['Name'];
-            $mobileNumber = $n['Mobile_No'];
-            $emailID = $n['Email'];
-        }
-    }
+    
 ?>
 
 <!DOCTYPE html>
@@ -84,9 +72,11 @@
                     <th>Action</th>
                 </tr>
             </thead>
-            <?php while($row  = mysqli_fetch_array($result)) { ?>
+
+            <?php 
+            foreach($users as $key => $row ) { ?>
             <tr>
-                <td><?php echo $row['ID']; ?></td>
+                <td><?php echo $key + 1;  ?></td>
                 <td><?php echo $row['Name']; ?></td>
                 <td><?php echo $row['Mobile_No']; ?></td>
                 <td><?php echo $row['Email']; ?></td>
@@ -95,7 +85,7 @@
                     <a href="table.php?edit=<?php echo $row['ID']; ?>" class="link-Success">Edit</a>
                     </button>
                     <button type="button" class="btn btn-danger text-light">
-                    <a href="connection.php?delete=<?php echo $row['ID']; ?>" class="link-Success">Delete</a>
+                    <a href="table.php?delete=<?php echo $row['ID']; ?>" class="link-Success">Delete</a>
                     </button> 
                 </td>
             </tr>
