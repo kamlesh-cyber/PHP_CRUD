@@ -59,7 +59,7 @@
               <input type="password" name="password" class="form-control" id="exampleInputPassword">
             </div>
             <div class="item form-check">
-              <input type="checkbox" class="form-check-input" id="exampleCheck">
+              <input type="checkbox" class="form-check-input" id="exampleCheck" required>
               <label class="form-check-label" for="exampleCheck">Check me out</label>
             </div>
             <div class="item">
